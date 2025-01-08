@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Horas Extras - Página Inicial</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+       html,
+        body {
+            background-color: #f8f9fa;
+            height: 100%;
+            margin: 0;
+        }
+        .navbar {
+            background-color: #4F81BD;
+        }
+        .navbar-brand {
+            color: white;
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+        .navbar-brand:hover {
+            color: white;
+        }
+        .container {
+            margin-top: 40px;
+        }
+        .btn {
+            margin-top: 20px;
+           
+        }
+        .footer {
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            background-color: #4F81BD;
+            color: white;
+            text-align: center;
+            padding: 10px;
+        }
+        .logo {
+            width: 50px;
+            height: 50px;
+            border-radius: 10px;
+            margin-right: 10px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-light">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="index.html">
+                <img src="./img/cadastrar.png" alt="Logo" class="logo">
+                Horas Extras
+            </a>
+        </div>
+    </nav>
+
+    <!-- Content -->
+    <div class="container">
+        <h1 class="text-center">Bem-vindo ao Sistema de Horas Extras</h1>
+        <p class="text-center">Escolha uma das opções abaixo:</p>
+        
+        <div class="d-flex justify-content-center gap-5">
+            <a href="cadastrar.html" class="btn btn-primary btn-lg">Cadastrar Funcionário</a>
+            <a href="consultar.html" class="btn btn-secondary btn-lg ml-3">Consultar Funcionário</a>
+            <a href="horasExtras.html" class="btn btn-success btn-lg ml-3">Gerar Planilha de H.E</a>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <div class="footer">
+        <p>&copy; 2025 Sistema teste</p>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

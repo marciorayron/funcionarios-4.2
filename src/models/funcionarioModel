@@ -1,0 +1,65 @@
+// src/models/funcionarioModel.js
+const pool = require('../config/database');
+
+const Funcionario = {
+  // Criar um novo funcionário
+  create: async (data) => {
+    const query = `
+      INSERT INTO funcionario 
+      (matricula, nome, email, whatsapp, telefone, data_admissao, onibus, ponto_referencia, cep, logradouro, numero, bairro, cidade, estado, projeto, linha, cargo, funcao, turno)
+      VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+    `;
+    const [result] = await pool.query(query, [
+      data.matricula,
+      data.nome,
+      data.email,
+      data.whatsapp,
+      data.telefone,
+      data.data_admissao,
+      data.onibus,
+      data.ponto_referencia,
+      data.cep,
+      data.logradouro,
+      data.numero,
+      data.bairro,
+      data.cidade,
+      data.estado,
+      data.projeto,
+      data.linha,
+      data.cargo,
+      data.funcao,
+      data.turno,
+    ]);
+    return result;
+  },
+
+  // Listar todos os funcionários
+  findAll: async () => {
+    const query = 'SELECT * FROM funcionario';
+    const [rows] = await pool.query(query);
+    return rows;
+  },
+
+  // Atualizar um funcionário
+  update: async (matricula, data) => {
+    const fields = Object.keys(data).map(key => `${key} = ?`).join(', ');
+    const values = Object.values(data);
+    const query = `UPDATE funcionario SET ${fields} WHERE matricula = ?`;
+    await pool.query(query, [...values, matricula]);
+  },
+
+  // Deletar um funcionário
+  delete: async (matricula) => {
+    const query = 'DELETE FROM funcionario WHERE matricula = ?';
+    await pool.query(query, [matricula]);
+  },
+
+  // Encontrar um funcionário por matricula
+  findByMatricula: async (matricula) => {
+    const query = 'SELECT * FROM funcionario WHERE matricula = ?';
+    const [rows] = await pool.query(query, [matricula]);
+    return rows[0];
+  },
+};
+
+module.exports = Funcionario;

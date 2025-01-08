@@ -1,0 +1,100 @@
+// src/controllers/funcionarioController.js
+const Funcionario = require('../models/funcionarioModel');
+const { sendResponse } = require('../utils/response');
+
+// Listar todos os funcionários
+const listFuncionarios = async (req, res) => {
+  try {
+    const funcionarios = await Funcionario.findAll();
+    sendResponse(res, 200, true, 'Funcionários listados com sucesso!', funcionarios);
+  } catch (err) {
+    sendResponse(res, 500, false, 'Erro ao listar funcionários.', err.message);
+  }
+};
+
+// Criar um novo funcionário
+const createFuncionario = async (req, res) => {
+  const { matricula, nome, email, whatsapp, telefone, data_admissao, onibus, ponto_referencia, cep, logradouro, numero, bairro, cidade, estado, projeto, linha, cargo, funcao, turno } = req.body;
+
+  // Caso o turno não seja enviado, definimos um valor padrão
+  const turnoFinal = turno || 'Não Informado';  // Valor padrão caso 'turno' não esteja presente
+
+  console.log("Dados recebidos:", req.body);
+  try {
+    const data = {
+      matricula,
+      nome,
+      email,
+      whatsapp,
+      telefone,
+      data_admissao,
+      onibus,
+      ponto_referencia,
+      cep,
+      logradouro,
+      numero,
+      bairro,
+      cidade,
+      estado,
+      projeto,
+      linha,
+      cargo,
+      funcao,
+      turno: turnoFinal,  // Usando o turno com valor padrão, se necessário
+    };
+    await Funcionario.create(data);
+    sendResponse(res, 201, true, 'Funcionário criado com sucesso!');
+  } catch (err) {
+    console.error('Erro ao criar funcionário:', err);
+    sendResponse(res, 500, false, 'Erro ao criar funcionário.', err.message);
+  }
+};
+
+
+// Atualizar um funcionário
+const updateFuncionario = async (req, res) => {
+  const { matricula } = req.params;
+  const updates = req.body;
+
+  try {
+    await Funcionario.update(matricula, updates);
+    sendResponse(res, 200, true, 'Funcionário atualizado com sucesso!');
+  } catch (err) {
+    sendResponse(res, 500, false, 'Erro ao atualizar funcionário.', err.message);
+  }
+};
+
+// Deletar um funcionário
+const deleteFuncionario = async (req, res) => {
+  const { matricula } = req.params;
+
+  try {
+    await Funcionario.delete(matricula);
+    sendResponse(res, 200, true, 'Funcionário deletado com sucesso!');
+  } catch (err) {
+    sendResponse(res, 500, false, 'Erro ao deletar funcionário.', err.message);
+  }
+};
+
+// Buscar um funcionário por matrícula
+const getFuncionarioByMatricula = async (req, res) => {
+  const { matricula } = req.params;
+
+  try {
+    const funcionario = await Funcionario.findByMatricula(matricula);
+    if (!funcionario) {
+      return sendResponse(res, 404, false, 'Funcionário não encontrado.');
+    }
+    sendResponse(res, 200, true, 'Funcionário encontrado!', funcionario);
+  } catch (err) {
+    sendResponse(res, 500, false, 'Erro ao buscar funcionário.', err.message);
+  }
+};
+
+module.exports = {
+  listFuncionarios,
+  createFuncionario,
+  updateFuncionario,
+  deleteFuncionario,
+  getFuncionarioByMatricula,
+};

@@ -1,0 +1,88 @@
+// src/services/apiPopularDados.js
+
+const express = require('express');
+const pool = require('../config/database');
+const { sendResponse } = require('../utils/response');
+
+// Criar um roteador do Express
+const apiPopularDados = express.Router();
+
+/**
+ * Modelo para interagir com o banco de dados
+ */
+const OpcoesModel = {
+  // Busca todos os projetos
+  async getProjetos() {
+    const [rows] = await pool.query('SELECT id, nome FROM projeto');
+    return rows;
+  },
+  // Busca linhas de um projeto específico
+  async getLinhas(projetoId) {
+    const [rows] = await pool.query('SELECT id, nome FROM linha WHERE projeto_id = ?', [projetoId]);
+    return rows;
+  },
+  // Busca todos os cargos
+  async getCargos() {
+    const [rows] = await pool.query('SELECT id, nome FROM cargo');
+    return rows;
+  },
+  // Busca todas as funções
+  async getFuncoes() {
+    const [rows] = await pool.query('SELECT id, nome FROM funcao');
+    return rows;
+  },
+  // Busca todos os turnos
+  async getTurnos() {
+    const [rows] = await pool.query('SELECT id, nome FROM turno');
+    return rows;
+  },
+};
+
+/**
+ * Controlador que gerencia as requisições relacionadas às opções
+ */
+const OpcoesController = {
+  // Retorna todas as opções: projetos, cargos, funções e turnos
+  async getOpcoes(req, res) {
+    try {
+      // Busca os dados utilizando o modelo
+      const projetos = await OpcoesModel.getProjetos();
+      const cargos = await OpcoesModel.getCargos();
+      const funcoes = await OpcoesModel.getFuncoes();
+      const turnos = await OpcoesModel.getTurnos();
+
+      // Envia a resposta com os dados
+      sendResponse(res, 200, true, 'Opções carregadas com sucesso!', { projetos, cargos, funcoes, turnos });
+    } catch (error) {
+      console.error('Erro ao buscar opções:', error);
+      sendResponse(res, 500, false, 'Erro ao carregar as opções.');
+    }
+  },
+
+  // Retorna as linhas de um projeto específico
+  async getLinhasPorProjeto(req, res) {
+    try {
+      const { projetoId } = req.params;
+
+      // Busca as linhas utilizando o modelo
+      const linhas = await OpcoesModel.getLinhas(projetoId);
+
+      // Envia a resposta com as linhas
+      sendResponse(res, 200, true, 'Linhas carregadas com sucesso!', { linhas });
+    } catch (error) {
+      console.error('Erro ao buscar linhas:', error);
+      sendResponse(res, 500, false, 'Erro ao carregar as linhas.');
+    }
+  },
+};
+
+/**
+ * Definição das rotas
+ */
+// Rota para obter todas as opções
+apiPopularDados.get('/opcoes', OpcoesController.getOpcoes);
+
+// Rota para obter as linhas de um projeto específico
+apiPopularDados.get('/linhas/:projetoId', OpcoesController.getLinhasPorProjeto);
+
+module.exports = { apiPopularDados };

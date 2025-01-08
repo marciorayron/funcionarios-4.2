@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Funcionarios</title>
+    <link href="styles.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/inputmask@5.0.7/dist/inputmask.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+</head>
+<style>
+    html,
+    body {
+        background-color: #f8f9fa;
+        height: 100%;
+        margin: 0;
+    }
+
+    .navbar {
+        background-color: #4F81BD;
+    }
+
+    .navbar-brand {
+        color: white;
+        font-size: 1.5rem;
+        font-weight: bold;
+    }
+
+    .navbar-brand:hover {
+        color: white;
+    }
+
+    .container {
+        margin-top: 40px;
+    }
+
+    .btn {
+        margin-top: 20px;
+
+    }
+
+    .footer {
+
+        bottom: 0;
+        width: 100%;
+        background-color: #4F81BD;
+        color: white;
+        text-align: center;
+        padding: 10px;
+    }
+
+    .logo {
+        width: 50px;
+        height: 50px;
+        border-radius: 10px;
+        margin-right: 10px;
+    }
+</style>
+</head>
+
+<body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-light">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="index.html">
+                <img src="./img/cadastrar.png" alt="Logo" class="logo">
+                Horas Extras
+            </a>
+        </div>
+    </nav>
+    <div class="page-container">
+        <div class="form-container">
+            <h2>Cadastrar Funcionários</h2>
+            <form id="funcionarioForm">
+                <!-- Informações Pessoais -->
+                <fieldset class="fieldset-container">
+                    <legend class="legend-title">Informações Pessoais</legend>
+                    <div class="custom-row">
+                        <div class="input-group">
+                            <label for="nome">Nome</label>
+                            <input type="text" class="input-field" id="nome" name="nome" required
+                                placeholder="Seu Nome Completo">
+                        </div>
+                        <div class="input-group">
+                            <label for="email">Email</label>
+                            <input type="email" class="input-field" id="email" name="email" required
+                                placeholder="email@email.com">
+                        </div>
+                        <div class="input-group">
+                            <label for="whatsapp">WhatsApp</label>
+                            <input type="tel" class="input-field" id="whatsapp" name="whatsapp"
+                                placeholder="(xx) 9xxxx-xxxx" required>
+                        </div>
+                        <div class="input-group">
+                            <label for="telefone">Telefone</label>
+                            <input type="tel" class="input-field" id="telefone" name="telefone"
+                                placeholder="(xx) 9xxxx-xxxx">
+                        </div>
+                    </div>
+                </fieldset>
+                <hr class="separator">
+
+                <!-- Endereços -->
+                <fieldset class="fieldset-container">
+                    <legend class="legend-title">Endereço</legend>
+                    <div class="custom-row">
+                        <div class="input-group">
+                            <label for="cep">CEP</label>
+                            <input type="text" class="input-field" id="cep" name="cep"
+                                placeholder="Ex: 88370296 APENAS NUMEROS " required oninput="buscarEndereco()">
+                        </div>
+                        <div class="input-group">
+                            <label for="logradouro">Rua</label>
+                            <input type="text" class="input-field" id="logradouro" name="logradouro"
+                                placeholder="Ex: Rua dos Bobos">
+                        </div>
+                        <div class="input-group">
+                            <label for="numero">Número</label>
+                            <input type="text" class="input-field" id="numero" name="numero" placeholder="123">
+                        </div>
+                        <div class="input-group">
+                            <label for="bairro">Bairro</label>
+                            <input type="text" class="input-field" id="bairro" name="bairro" placeholder="Ex: Centro">
+                        </div>
+                        <div class="input-group">
+                            <label for="cidade">Cidade</label>
+                            <input type="text" class="input-field" id="cidade" name="cidade" placeholder=" Ex: Itajai">
+                        </div>
+                        <div class="input-group">
+                            <label for="estado">Estado</label>
+                            <input type="text" class="input-field" id="estado" name="estado" placeholder="Ex: SC">
+                        </div>
+                    </div>
+                </fieldset>
+                <hr class="separator">
+
+                <!-- Informações da Empresa -->
+                <fieldset class="fieldset-container">
+                    <legend class="legend-title">Informações da Empresa</legend>
+                    <div class="custom-row">
+                        <div class="input-group">
+                            <label for="matricula">Matrícula</label>
+                            <input type="text" class="input-field" id="matricula" name="matricula" required
+                                placeholder="Ex: 1394978">
+                        </div>
+                        <div class="input-group">
+                            <label for="projeto">Projeto</label>
+                            <select class="input-field" id="projeto" name="projeto" required>
+                                <option value="">Selecione um projeto</option>
+                            </select>
+                        </div>
+                        <div class="input-group">
+                            <label for="linha">Linha</label>
+                            <select class="input-field" id="linha" name="linha" required>
+                                <option value="">Selecione uma linha</option>
+                            </select>
+                        </div>
+                        <div class="input-group">
+                            <label for="cargo">Cargo</label>
+                            <select class="input-field" id="cargo" name="cargo" required>
+                                <option value="">Selecione um cargo</option>
+                            </select>
+                        </div>
+                        <div class="input-group">
+                            <label for="funcao">Função</label>
+                            <select class="input-field" id="funcao" name="funcao" required>
+                                <option value="">Selecione uma função</option>
+                            </select>
+                        </div>
+                        <div class="input-group">
+                            <label for="turno">Turno</label>
+                            <select class="input-field" id="turno" name="turno" required>
+                                <option value="">Selecione um turno</option>
+                            </select>
+                        </div>
+
+                        <div class="input-group">
+                            <label for="data_admissao">Data de Admissão</label>
+                            <input type="date" class="input-field" id="data_admissao" name="data_admissao" required>
+                        </div>
+                        <div class="input-group">
+                            <label for="onibus">Ônibus</label>
+                            <input type="text" class="input-field" id="onibus" name="onibus" required
+                                placeholder="Ex: 101">
+                        </div>
+                        <div class="input-group">
+                            <label for="ponto_referencia">Ponto de Referência</label>
+                            <input type="text" class="input-field" id="ponto_referencia" name="ponto_referencia"
+                                required placeholder="Ex: Padaria, Agropecuaria">
+                        </div>
+                    </div>
+                </fieldset>
+
+                <button type="button" class="btn-save">Salvar</button>
+
+                <button type="button" class="btn-modal" data-bs-toggle="modal" data-bs-target="#staticBackdrop1"
+                    onclick="window.location.href='consultar.html';">Consultar</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <div class="footer">
+        <p>&copy; 2025 Sistema teste</p>
+    </div>
+
+    <script src="./js/script.js"></script>
+    <script src="./js/loadOpcoes.js"></script>
+</body>
+
+</html>

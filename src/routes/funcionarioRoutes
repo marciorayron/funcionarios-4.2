@@ -1,0 +1,22 @@
+// src/routes/funcionarioRoutes.js
+const express = require('express');
+const funcionarioController = require('../controller/funcionarioController');
+
+const router = express.Router();
+
+// Rota para listar todos os funcionários
+router.get('/funcionarios', funcionarioController.listFuncionarios);
+
+// Rota para criar um novo funcionário
+router.post('/funcionarios', funcionarioController.createFuncionario);
+
+// Rota para atualizar um funcionário
+router.put('/funcionarios/:matricula', funcionarioController.updateFuncionario);
+
+// Rota para deletar um funcionário
+router.delete('/funcionarios/:matricula', funcionarioController.deleteFuncionario);
+
+// Rota para buscar um funcionário por matrícula
+router.get('/funcionarios/:matricula', funcionarioController.getFuncionarioByMatricula);
+
+module.exports = router;
