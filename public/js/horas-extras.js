@@ -51,7 +51,7 @@ document.addEventListener('DOMContentLoaded', function () {
     // Função para buscar os dados do funcionário
     const buscarFuncionario = async (matricula) => {
         try {
-            const response = await axios.get(`http://localhost:3000/api/funcionarios/${matricula}`);
+            const response = await axios.get(`http://https://marciorayron.com/api/funcionarios/${matricula}`);
             if (response.data.success) {
                 funcionarioData = response.data.data;
                 document.getElementById('nomeFuncionario').innerText = funcionarioData.nome;

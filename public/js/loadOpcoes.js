@@ -16,7 +16,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     } else {
       // Caso contrário, fazer a requisição para obter as opções
       try {
-        const response = await axios.get('http://localhost:3000/api/opcoes');
+        const response = await axios.get('http://https://marciorayron.com/api/opcoes');
         const { projetos, cargos, funcoes, turnos } = response.data.data;
 
         // Preencher os campos com os dados da resposta
@@ -89,7 +89,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     if (!projetoId) return;
 
     try {
-      const response = await axios.get(`http://localhost:3000/api/linhas/${projetoId}`);
+      const response = await axios.get(`http://https://marciorayron.com/api/linhas/${projetoId}`);
       const { linhas } = response.data.data;
 
       // Preencher linhas correspondentes
