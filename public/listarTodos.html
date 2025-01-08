@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lista de Funcionários</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        html, body {
+            background-color: #f8f9fa;
+            height: 100%;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .navbar {
+            background-color: #4F81BD;
+        }
+
+        .navbar-brand {
+            color: white;
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+
+        .navbar-brand:hover {
+            color: white;
+        }
+
+        .container {
+            flex-grow: 1;
+        }
+
+        .footer {
+            background-color: #4F81BD;
+            color: white;
+            text-align: center;
+            padding: 10px;
+            width: 100%;
+        }
+
+        .logo {
+            width: 50px;
+            height: 50px;
+            border-radius: 10px;
+            margin-right: 10px;
+        }
+
+        .rodape {
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-light">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="index.html">
+                <img src="./img/logo.png" alt="Logo" class="logo">
+                Gerenciamento de Horas Extras
+            </a>
+        </div>
+    </nav>
+
+    <!-- Conteúdo da página -->
+    <div class="container">
+        <h3 class="mt-5">Lista de Funcionários</h3>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Matrícula</th>
+                    <th>Nome</th>
+                    <th>Função</th>
+                    <th>Cargo</th>
+                    <th>Linha</th>
+                    <th>Projeto</th>
+                </tr>
+            </thead>
+            <tbody id="listaFuncionarios">
+                <!-- Funcionários adicionados aparecerão aqui -->
+            </tbody>
+        </table>
+        <div class="rodape d-flex justify-content-between align-items-center mt-3">
+            <!-- Botões de Navegação -->
+            <button id="paginaAnterior" class="btn btn-secondary" disabled>Anterior</button>
+            <span id="paginaAtual">Página 1 de 1</span>
+            <button id="proximaPagina" class="btn btn-secondary" disabled>Próxima</button>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <div class="footer">
+        <p>&copy; 2025 Sistema Gerenciamento de Horas Extras</p>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script>
+        const apiUrl = "http://localhost:3000/api/funcionarios";
+        const tabela = document.getElementById("listaFuncionarios");
+        const paginaAtualSpan = document.getElementById("paginaAtual");
+        const btnAnterior = document.getElementById("paginaAnterior");
+        const btnProxima = document.getElementById("proximaPagina");
+    
+        let paginaAtual = 1;
+        const resultadosPorPagina = 10;
+    
+        async function carregarFuncionarios(pagina) {
+            try {
+                const { data } = await axios.get(apiUrl, {
+                    params: { page: pagina, limit: resultadosPorPagina }
+                });
+    
+                const funcionarios = data.data; // Ajustando para usar a propriedade correta
+                tabela.innerHTML = "";
+    
+                funcionarios.forEach(funcionario => {
+                    const tr = document.createElement("tr");
+                    tr.innerHTML = `
+                        <td>${funcionario.matricula}</td>
+                        <td>${funcionario.nome}</td>
+                        <td>${funcionario.funcao}</td>
+                        <td>${funcionario.cargo}</td>
+                        <td>${funcionario.linha}</td>
+                        <td>${funcionario.projeto}</td>
+                    `;
+                    tabela.appendChild(tr);
+                });
+    
+                const totalPaginas = Math.ceil(funcionarios.length / resultadosPorPagina);
+                paginaAtualSpan.textContent = `Página ${pagina} de ${totalPaginas}`;
+                btnAnterior.disabled = pagina === 1;
+                btnProxima.disabled = pagina === totalPaginas;
+            } catch (error) {
+                console.error("Erro ao carregar funcionários:", error);
+                alert("Erro ao carregar funcionários. Verifique a API.");
+            }
+        }
+    
+        btnAnterior.addEventListener("click", () => {
+            if (paginaAtual > 1) {
+                carregarFuncionarios(--paginaAtual);
+            }
+        });
+    
+        btnProxima.addEventListener("click", () => {
+            carregarFuncionarios(++paginaAtual);
+        });
+    
+        // Carrega a primeira página ao inicializar
+        carregarFuncionarios(paginaAtual);
+    </script>
+    
+</body>
+
+</html>
