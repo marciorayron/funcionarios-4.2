@@ -15,34 +15,87 @@
         <div class="container-fluid">
             <a class="navbar-brand" href="index.html">
                 <img src="./img/cadastrar.png" alt="Logo" class="logo">
-                Listar Todos os Funcionarios
+                Listar Todos os Funcionários
             </a>
         </div>
     </nav>
 
     <!-- Conteúdo da página -->
-    <div class="container">
-        <h3 class="mt-5">Lista de Funcionários</h3>
-        <table class="table table-striped">
-            <thead>
-                <tr>
-                    <th>Matrícula</th>
-                    <th>Nome</th>
-                    <th>Função</th>
-                    <th>Cargo</th>
-                    <th>Linha</th>
-                    <th>Projeto</th>
-                </tr>
-            </thead>
-            <tbody id="listaFuncionarios">
-                <!-- Funcionários adicionados aparecerão aqui -->
-            </tbody>
-        </table>
-        <div class="rodape d-flex justify-content-between align-items-center mt-3">
-            <!-- Botões de Navegação -->
-            <button id="paginaAnterior" class="btn btn-secondary" disabled>Anterior</button>
-            <span id="paginaAtual">Página 1 de 1</span>
-            <button id="proximaPagina" class="btn btn-secondary" disabled>Próxima</button>
+    <div class="container mt-5">
+        <div class="row">
+            <!-- Filtro lateral -->
+            <div class="col-md-3">
+                <h5>Filtrar Funcionários</h5>
+    
+                <!-- Filtro por Nome -->
+                <div class="mb-3">
+                    <label for="filtroNome">Nome</label>
+                    <input type="text" id="filtroNome" class="form-control" placeholder="Insira o nome">
+                </div>
+    
+                <!-- Filtro por Função -->
+                <div class="mb-3">
+                    <label for="filtroFuncao">Função</label>
+                    <select id="filtroFuncao" class="form-select">
+                        <option value="">Todas</option>
+                    </select>
+                </div>
+    
+                <!-- Filtro por Cargo -->
+                <div class="mb-3">
+                    <label for="filtroCargo">Cargo</label>
+                    <select id="filtroCargo" class="form-select">
+                        <option value="">Todos</option>
+                    </select>
+                </div>
+    
+                <!-- Filtro por Linha -->
+                <div class="mb-3">
+                    <label for="filtroLinha">Linha</label>
+                    <select id="filtroLinha" class="form-select">
+                        <option value="">Todas</option>
+                    </select>
+                </div>
+    
+                <!-- Filtro por Projeto -->
+                <div class="mb-3">
+                    <label for="filtroProjeto">Projeto</label>
+                    <select id="filtroProjeto" class="form-select">
+                        <option value="">Todos</option>
+                    </select>
+                </div>
+    
+                <!-- Botão para limpar filtros -->
+                <button id="limparFiltros" class="btn btn-danger w-100">Limpar Filtros</button>
+            </div>
+    
+               
+
+            <!-- Tabela de funcionários -->
+            <div class="col-md-9">
+                <h3>Lista de Funcionários</h3>
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>Matrícula</th>
+                            <th>Nome</th>
+                            <th>Função</th>
+                            <th>Cargo</th>
+                            <th>Linha</th>
+                            <th>Projeto</th>
+                        </tr>
+                    </thead>
+                    <tbody id="listaFuncionarios">
+                        <!-- Funcionários adicionados aparecerão aqui -->
+                    </tbody>
+                </table>
+                <div class="rodape d-flex justify-content-between align-items-center mt-3">
+                    <!-- Botões de Navegação -->
+                    <button id="paginaAnterior" class="btn btn-secondary" disabled>Anterior</button>
+                    <span id="paginaAtual">Página 1 de 1</span>
+                    <button id="proximaPagina" class="btn btn-secondary" disabled>Próxima</button>
+                </div>
+            </div>
         </div>
     </div>
 
