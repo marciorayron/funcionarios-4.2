@@ -13,7 +13,11 @@ async function carregarFuncionarios(pagina) {
             params: { page: pagina, limit: resultadosPorPagina }
         });
 
-        const funcionarios = data.data; // Ajustando para usar a propriedade correta
+        let funcionarios = data.data; // Ajustando para usar a propriedade correta
+
+        // Ordenando os funcionários pelo nome (ordem alfabética)
+        funcionarios.sort((a, b) => a.nome.localeCompare(b.nome));
+
         tabela.innerHTML = "";
 
         funcionarios.forEach(funcionario => {
