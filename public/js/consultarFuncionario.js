@@ -68,7 +68,7 @@ const preencherSelect = (campoId, valor) => {
     // Função para consultar funcionário pelo número de matrícula
     const consultarFuncionario = async (matricula) => {
         try {
-            const response = await axios.get(`http://https://marciorayron.com/api/funcionarios/${matricula}`);
+            const response = await axios.get(`http://localhost:3000/api/funcionarios/${matricula}`);
 
             if (response.data.success) {
                 preencherFormulario(response.data.data); // Preenche o formulário com os dados
@@ -123,7 +123,7 @@ const preencherSelect = (campoId, valor) => {
     // Função para excluir um funcionário
     const excluirFuncionario = async (matricula) => {
         try {
-            const response = await axios.delete(`http://https://marciorayron.com/api/funcionarios/${matricula}`);
+            const response = await axios.delete(`http://localhost:3000/api/funcionarios/${matricula}`);
             if (response.data.success) {
                 alert("Funcionário excluído com sucesso!");
                 // Limpar o formulário após exclusão
@@ -170,7 +170,7 @@ const preencherSelect = (campoId, valor) => {
 
         try {
             const matricula = document.getElementById("matricula").value;
-            const response = await axios.put(`http://https://marciorayron.com/api/funcionarios/${matricula}`, funcionarioData);
+            const response = await axios.put(`http://localhost:3000/api/funcionarios/${matricula}`, funcionarioData);
             if (response.data.success) {
                 alert("Funcionário atualizado com sucesso!");
                 toggleFormFields(false);

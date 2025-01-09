@@ -48,7 +48,7 @@ const createTables = async () => {
       data_admissao DATE NOT NULL,
       onibus VARCHAR(50) NOT NULL,
       ponto_referencia VARCHAR(255) NOT NULL,
-      cep VARCHAR(8) NOT NULL,
+      cep VARCHAR(9) NOT NULL,
       logradouro VARCHAR(255) NOT NULL,
       numero VARCHAR(10) NOT NULL,
       bairro VARCHAR(100) NOT NULL,

@@ -1,0 +1,50 @@
+/* listarTodos.css */
+
+/* Estilos gerais */
+html, body {
+    background-color: #f8f9fa;
+    height: 100%;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+}
+
+.navbar {
+    background-color: #4F81BD;
+}
+
+.navbar-brand {
+    color: white;
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
+.navbar-brand:hover {
+    color: white;
+}
+
+.container {
+    flex-grow: 1;
+}
+
+/* Rodapé */
+.footer {
+    background-color: #4F81BD;
+    color: white;
+    text-align: center;
+    padding: 10px;
+    width: 100%;
+}
+
+/* Logo */
+.logo {
+    width: 50px;
+    height: 50px;
+    border-radius: 10px;
+    margin-right: 10px;
+}
+
+/* Rodapé de navegação */
+.rodape {
+    margin-bottom: 10px;
+}

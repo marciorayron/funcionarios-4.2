@@ -63,7 +63,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         try {
             // Enviar os dados para a API
-            const response = await axios.post('http://https://marciorayron.com/api/funcionarios', data);
+            const response = await axios.post('http://localhost:3000/api/funcionarios', data);
             alert('Funcionário salvo com sucesso!');
             event.target.reset(); // Resetar o formulário após envio
         } catch (error) {
